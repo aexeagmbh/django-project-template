@@ -233,17 +233,6 @@ LOGGING = {
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 # ######### END WSGI CONFIGURATION
 
-
-# ######### SOUTH CONFIGURATION
-# See: http://south.readthedocs.org/en/latest/installation.html#configuring-your-django-installation
-INSTALLED_APPS += (
-    # Database migration helpers:
-    'south',
-)
-# Don't need to use South when setting up a test database.
-SOUTH_TESTS_MIGRATE = False
-# ######### END SOUTH CONFIGURATION
-
 try:
     from .local_settings import *
 except ImportError as e:
