@@ -33,7 +33,7 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('Arne Schauf', 'django@as-webservices.de'),
+    ('AX IT Services', 'it-services@aexea.de'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -43,16 +43,7 @@ MANAGERS = ADMINS
 
 ########## DATABASE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
-}
+DATABASES = False
 ########## END DATABASE CONFIGURATION
 
 

@@ -4,6 +4,7 @@ from __future__ import absolute_import
 
 from os.path import join, normpath
 
+from django.conf import ImproperlyConfigured
 from .base import *
 
 
@@ -21,22 +22,6 @@ TEMPLATE_DEBUG = DEBUG
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ########## END EMAIL CONFIGURATION
 
-
-########## DATABASE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': normpath(join(DJANGO_ROOT, 'default.db')),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
-}
-########## END DATABASE CONFIGURATION
-
-
 ########## CACHE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
@@ -47,7 +32,7 @@ CACHES = {
 ########## END CACHE CONFIGURATION
 
 
-########## TOOLBAR CONFIGURATION
+# ######### TOOLBAR CONFIGURATION
 # See: http://django-debug-toolbar.readthedocs.org/en/latest/installation.html#explicit-setup
 INSTALLED_APPS += (
     'debug_toolbar',
@@ -61,4 +46,31 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 # http://django-debug-toolbar.readthedocs.org/en/latest/installation.html
 INTERNAL_IPS = ('127.0.0.1',)
-########## END TOOLBAR CONFIGURATION
+# ######### END TOOLBAR CONFIGURATION
+
+try:
+    from .local_settings import *
+except ImportError as e:
+    raise ImproperlyConfigured('Please add a local_setting.py in the settings folder for your local untracked settings.')
+
+# ######### DATABASE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+if not DATABASES:
+    raise ImproperlyConfigured(
+        '''Please add DATABASES setting to your local_settings.py.
+        See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+
+        Example:
+
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'project_name',
+                'USER': 'project_name',
+                'PASSWORD': 'secret',
+                'HOST': 'localhost',
+                'PORT': '',
+            }
+        }
+        ''')
+# ######### END DATABASE CONFIGURATION
