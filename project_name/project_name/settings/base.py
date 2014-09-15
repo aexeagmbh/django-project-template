@@ -3,6 +3,7 @@
 
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
+from django.conf import ImproperlyConfigured
 
 
 # ######### PATH CONFIGURATION
