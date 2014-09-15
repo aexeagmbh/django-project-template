@@ -1,3 +1,6 @@
+# django settings
+local_settings.py
+
 # Python bytecode:
 *.py[co]
 
