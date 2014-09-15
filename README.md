@@ -1,3 +1,8 @@
 # {{ project_name }}
 
-Add description and helpful instructions here
+## Project binary dependencies
+
+Ubuntu 14.04 apt packages:
+```
+sudo aptitude install python3-dev postgresql-server-dev-all
+```
