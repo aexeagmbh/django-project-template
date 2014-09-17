@@ -6,3 +6,4 @@ django-extensions
 django-braces
 django-model-utils
 gunicorn
+newrelic
