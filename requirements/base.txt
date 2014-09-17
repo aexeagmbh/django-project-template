@@ -6,3 +6,4 @@ django-model-utils
 South
 celery
 django-celery
+git+https://github.com/aexeagmbh/django-statictemplate.git#egg=django-statictemplate

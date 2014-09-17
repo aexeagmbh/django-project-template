@@ -10,3 +10,4 @@ celery
 django-celery
 flower
 newrelic
+git+https://github.com/aexeagmbh/django-statictemplate.git#egg=django-statictemplate

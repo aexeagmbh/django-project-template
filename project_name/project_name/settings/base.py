@@ -184,6 +184,7 @@ DJANGO_APPS = (
     'django.contrib.admin',
     # 'django.contrib.admindocs',
     'django_extensions',
+    'statictemplate',
 )
 
 # Apps specific for this project go here.
