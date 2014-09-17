@@ -4,3 +4,5 @@ django-extensions
 django-braces
 django-model-utils
 South
+celery
+django-celery
