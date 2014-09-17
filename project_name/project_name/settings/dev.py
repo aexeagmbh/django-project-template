@@ -60,8 +60,29 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 INTERNAL_IPS = ('127.0.0.1',)
 # ######### END TOOLBAR CONFIGURATION
 
-# override settings with local_settings again
 try:
     from .local_settings import *
 except ImportError as e:
     raise ImproperlyConfigured('Please add a local_setting.py in the settings folder for your local untracked settings.')
+
+# ######### DATABASE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+if not DATABASES:
+    raise ImproperlyConfigured(
+        '''Please add DATABASES setting to your local_settings.py.
+        See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+
+        Example:
+
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'cinderella',
+                'USER': 'cinderella',
+                'PASSWORD': 'secret',
+                'HOST': 'localhost',
+                'PORT': '',
+            }
+        }
+        ''')
+# ######### END DATABASE CONFIGURATION
