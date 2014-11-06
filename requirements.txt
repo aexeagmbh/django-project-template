@@ -10,4 +10,5 @@ celery
 django-celery
 flower
 newrelic
+psycopg2
 git+https://github.com/aexeagmbh/django-statictemplate.git#egg=django-statictemplate
