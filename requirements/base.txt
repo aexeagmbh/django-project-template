@@ -1,10 +1,9 @@
+celery
 Django<1.8
-ipython
+django-celery
 django-extensions
 django-braces
 django-model-utils
-South
-celery
-django-celery
-psycopg2
 git+https://github.com/aexeagmbh/django-statictemplate.git#egg=django-statictemplate
+ipython
+psycopg2
