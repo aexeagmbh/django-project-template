@@ -1,13 +1,21 @@
-# This file is here because many Platforms as a Service look for
-#	requirements.txt in the root directory of a project.
-Django<1.8
-ipython
-django-extensions
-django-braces
-django-model-utils
-gunicorn
+billiard
 celery
+Django<1.8
+django-appconf
+django-braces
 django-celery
-flower
-newrelic
+django-debug-toolbar
+django-extensions
+django-model-utils
 git+https://github.com/aexeagmbh/django-statictemplate.git#egg=django-statictemplate
+flower
+gunicorn
+ipython
+kombu
+newrelic
+psycopg2
+pytest-django
+pytest
+pytz
+raven
+http://pypi.qax.io/axhandle-0.0.1.tar.gz

@@ -1,0 +1,49 @@
+data:
+  image: aexea/aexea-base
+  volumes:
+    - /home/uid1000
+web:
+  build: .
+  links:
+   - db
+   - rabbitmq
+  entrypoint: ./manage.py
+  command: "runserver 0.0.0.0:8000"
+  environment:
+      PYTHONUNBUFFERED: 0
+  volumes:
+   - .:/opt/code
+  volumes_from:
+   - data
+  ports:
+   - "8000:8000"
+celery:
+  build: .
+  command: "celery -n {{ project_name }}.%h -A {{ project_name }} worker --loglevel=info"
+  environment:
+    PYTHONUNBUFFERED: 0
+  volumes:
+   - .:/opt/code
+  links:
+   - rabbitmq
+   - db
+flower:
+  build: .
+  command: "celery flower -A {{ project_name }} --port=5555"
+  environment:
+    PYTHONUNBUFFERED: 0
+  volumes:
+   - .:/opt/code
+  links:
+   - rabbitmq
+  ports:
+      - "5555:5555"
+db:
+  image: postgres:9.3
+  ports:
+   - "5432:5432"
+rabbitmq:
+  image: dockerfile/rabbitmq
+  ports:
+   - "5672:5672"
+   - "15672:15672"

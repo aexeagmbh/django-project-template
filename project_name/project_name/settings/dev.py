@@ -1,10 +1,5 @@
+# coding=utf-8
 """Development settings and globals."""
-
-from __future__ import absolute_import
-
-from os.path import join, normpath
-
-from django.conf import ImproperlyConfigured
 from .base import *
 
 
@@ -22,15 +17,17 @@ TEMPLATE_DEBUG = DEBUG
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # ######### END EMAIL CONFIGURATION
 
-# ######### CACHE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
-CACHES = {
+
+# ######### DATABASE CONFIGURATION
+DATABASES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '{{ project_name }}',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
-# ######### END CACHE CONFIGURATION
-
 
 # ######### TOOLBAR CONFIGURATION
 # See: http://django-debug-toolbar.readthedocs.org/en/latest/installation.html#explicit-setup
@@ -56,33 +53,23 @@ DEBUG_TOOLBAR_PANELS = [
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
-# http://django-debug-toolbar.readthedocs.org/en/latest/installation.html
-INTERNAL_IPS = ('127.0.0.1',)
+# boto (not use on dev):
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': '{}.show_toolbar'.format(__name__),
+    }
+
+
+def show_toolbar(request):
+    return DEBUG
 # ######### END TOOLBAR CONFIGURATION
+
+BROKER_URL = 'amqp://guest@rabbitmq'
+AMQP_HTTP_API_URL = 'rabbitmq:15672'
+CELERY_RESULT_BACKEND = 'disabled'
 
 try:
     from .local_settings import *
-except ImportError as e:
-    raise ImproperlyConfigured('Please add a local_setting.py in the settings folder for your local untracked settings.')
-
-# ######### DATABASE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-if not DATABASES:
-    raise ImproperlyConfigured(
-        '''Please add DATABASES setting to your local_settings.py.
-        See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
-        Example:
-
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'cinderella',
-                'USER': 'cinderella',
-                'PASSWORD': 'secret',
-                'HOST': 'localhost',
-                'PORT': '',
-            }
-        }
-        ''')
-# ######### END DATABASE CONFIGURATION
+except ImportError:
+    print('No local settings found')
