@@ -221,3 +221,17 @@ LOGGING = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 # ######### END WSGI CONFIGURATION
+
+
+from axhandle.celery import DotRouter, DotQueue
+
+CELERY_ROUTES = (DotRouter(),)
+CELERY_QUEUES = (
+    DotQueue('{{ project_name }}'),
+)
+CELERY_TIMEZONE = 'Europe/Berlin'
+
+# Explicitly specify the pickle serialization format to disable the startup warning.
+CELERY_ACCEPT_CONTENT = ['pickle']
+
+CELERY_IGNORE_RESULT = True
