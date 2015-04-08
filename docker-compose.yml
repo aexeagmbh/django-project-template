@@ -4,9 +4,6 @@ data:
     - /home/uid1000
 web:
   build: .
-  links:
-   - db
-   - rabbitmq
   entrypoint: ./manage.py
   command: "runserver 0.0.0.0:8000"
   environment:
@@ -17,23 +14,18 @@ web:
    - data
   ports:
    - "8000:8000"
+  external_links:
+   - axmeta_rabbitmq_1:rabbitmq
+   - axmeta_db_1:db
 celery:
   build: .
-  entrypoint: "celery"
+  entrypoint:
+    - "celery"
   command: "-n {{ project_name }}.%h -A {{ project_name }} worker --loglevel=info"
   environment:
     PYTHONUNBUFFERED: 0
   volumes:
    - .:/opt/code
-  links:
-   - rabbitmq
-   - db
-db:
-  image: postgres:9.3
-  ports:
-   - "5432:5432"
-rabbitmq:
-  image: dockerfile/rabbitmq
-  ports:
-   - "5672:5672"
-   - "15672:15672"
+  external_links:
+   - axmeta_rabbitmq_1:rabbitmq
+   - axmeta_db_1:db
