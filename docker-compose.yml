@@ -4,6 +4,7 @@ data:
     - /home/uid1000
 web:
   build: .
+  user: uid1000
   entrypoint: ./manage.py
   command: "runserver 0.0.0.0:8000"
   environment:
@@ -19,6 +20,7 @@ web:
    - axmeta_db_1:db
 celery:
   build: .
+  user: uid1000
   entrypoint:
     - "celery"
   command: "-n {{ project_name }}.%h -A {{ project_name }} worker --loglevel=info"
