@@ -69,6 +69,8 @@ BROKER_URL = 'amqp://guest@rabbitmq'
 AMQP_HTTP_API_URL = 'rabbitmq:15672'
 CELERY_RESULT_BACKEND = 'disabled'
 
+ENVIRONMENT = 'dev'
+
 try:
     from .local_settings import *
 except ImportError:

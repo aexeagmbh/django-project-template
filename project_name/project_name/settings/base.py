@@ -222,6 +222,7 @@ LOGGING = {
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 # ######### END WSGI CONFIGURATION
 
+ENVIRONMENT = 'base'
 
 from axhandle.celery import DotRouter, DotQueue
 
